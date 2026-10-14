@@ -1,0 +1,44 @@
+# Example only: adjust certificate paths and root to the real host.
+# HTTPS must already be configured on the server; this file does not issue certificates.
+server {
+    listen 80;
+    server_name mellomosnaseguros.com.br www.mellomosnaseguros.com.br;
+    return 301 https://mellomosnaseguros.com.br$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name mellomosnaseguros.com.br;
+    ssl_certificate /PATH/TO/fullchain.pem;
+    ssl_certificate_key /PATH/TO/privkey.pem;
+    root /var/www/mello-mosna/dist;
+    index index.html;
+    charset utf-8;
+    gzip on;
+    gzip_types text/css application/javascript application/json image/svg+xml text/plain application/xml;
+    add_header X-Content-Type-Options nosniff always;
+    add_header Referrer-Policy strict-origin-when-cross-origin always;
+
+    # There is one real page. Do not rewrite unknown URLs to index.html (soft 404).
+    location / { try_files $uri $uri/ =404; }
+    error_page 404 /404.html;
+    location = /404.html { internal; }
+    location = /index.html { add_header Cache-Control "no-cache"; }
+    location ~* ^/assets/.+-[A-Za-z0-9_-]{8}\.(js|css)$ {
+        try_files $uri =404;
+        add_header Cache-Control "public, max-age=31536000, immutable";
+    }
+    location ~* \.(woff2|png|jpg|webp|svg)$ {
+        try_files $uri =404;
+        add_header Cache-Control "public, max-age=604800";
+    }
+}
+
+# The certificate must also cover www before enabling this server block.
+server {
+    listen 443 ssl;
+    server_name www.mellomosnaseguros.com.br;
+    ssl_certificate /PATH/TO/fullchain.pem;
+    ssl_certificate_key /PATH/TO/privkey.pem;
+    return 301 https://mellomosnaseguros.com.br$request_uri;
+}
