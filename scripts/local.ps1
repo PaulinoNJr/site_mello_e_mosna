@@ -5,7 +5,7 @@ $cacheRoot = Join-Path $env:LOCALAPPDATA 'mello-mosna-site'
 New-Item -ItemType Directory -Path $cacheRoot -Force | Out-Null
 # Google Drive virtual disks can reject npm's many concurrent package writes.
 # Keep dependencies on the local disk; the editable source stays in this project.
-foreach ($directory in @('src', 'public', 'tests', 'scripts')) {
+foreach ($directory in @('src', 'public', 'tests', 'scripts', 'google-sites')) {
   $sourceDirectory = Join-Path $projectRoot $directory
   if (Test-Path -LiteralPath $sourceDirectory) { Copy-Item -LiteralPath $sourceDirectory -Destination $cacheRoot -Recurse -Force }
 }
@@ -24,12 +24,16 @@ try {
     Set-Content -LiteralPath $hashFile -Value $packageHash
   }
   if ($Task -eq 'test') {
-    & npx.cmd playwright install chromium
+    & npx.cmd playwright install chromium firefox webkit
     if ($LASTEXITCODE -ne 0) { throw 'Falha ao instalar o navegador de testes.' }
   }
   & npm.cmd run $Task
   if ($LASTEXITCODE -ne 0) { throw "Falha na tarefa $Task." }
   if ($Task -eq 'build') { Copy-Item -LiteralPath (Join-Path $cacheRoot 'dist') -Destination $projectRoot -Recurse -Force }
   if ($Task -eq 'test') { Copy-Item -LiteralPath (Join-Path $cacheRoot 'test-results') -Destination $projectRoot -Recurse -Force }
+  if ($Task -in @('test', 'build')) {
+    Copy-Item -LiteralPath (Join-Path $cacheRoot 'google-sites/Avaliacoes.html') -Destination (Join-Path $projectRoot 'google-sites/Avaliacoes.html') -Force
+    Copy-Item -LiteralPath (Join-Path $cacheRoot 'public/reviews-preview.html') -Destination (Join-Path $projectRoot 'public/reviews-preview.html') -Force
+  }
   Copy-Item -LiteralPath (Join-Path $cacheRoot 'package-lock.json') -Destination $projectRoot -Force
 } finally { Pop-Location }

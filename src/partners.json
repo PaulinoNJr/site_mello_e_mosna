@@ -1,0 +1,12 @@
+[
+  { "id": "porto", "name": "Porto", "image": "porto.svg" },
+  { "id": "tokio", "name": "Tokio Marine Seguradora", "image": "tokio.png" },
+  { "id": "mapfre", "name": "MAPFRE", "image": "mapfre.png" },
+  { "id": "allianz", "name": "Allianz", "image": "allianz.svg" },
+  { "id": "yelum", "name": "Yelum", "image": "yelum.svg" },
+  { "id": "azul", "name": "Azul Seguros", "image": "azul.svg" },
+  { "id": "bradesco", "name": "Bradesco Seguros", "image": "bradesco.svg" },
+  { "id": "itau", "name": "Itaú", "image": "itau.png" },
+  { "id": "zurich", "name": "Zurich", "image": "zurich.svg" },
+  { "id": "mitsui", "name": "Mitsui Sumitomo Seguros", "image": "mitsui.svg" }
+]

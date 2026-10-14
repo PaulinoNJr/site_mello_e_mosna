@@ -8,7 +8,8 @@
     "typecheck": "tsc --noEmit",
     "build": "npm run typecheck && node scripts/build.mjs",
     "preview": "vite preview --host 127.0.0.1",
-    "test": "npm run test:seo && npm run build && playwright test",
+    "test": "npm run test:seo && npm run test:reviews && npm run build && playwright test",
+    "test:reviews": "node --test scripts/reviews.test.mjs",
     "test:seo": "node --test scripts/seo.test.mjs"
   },
   "dependencies": {

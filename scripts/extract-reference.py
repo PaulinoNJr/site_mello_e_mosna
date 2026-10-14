@@ -16,8 +16,6 @@ data = {
     'services': cards('var eh=', 'function th'),
     'differentials': cards('var nh=', 'function rh'),
     'benefits': re.findall(r'`([^`]+)`', source[source.index('var Sh='):source.index('function Ch')]),
-    'testimonials': [dict(quote=q, author=a, role=r, initial=i) for q,a,r,i in re.findall(
-        r'quote:`([^`]+)`,author:`([^`]+)`,role:`([^`]+)`,initial:`([^`]+)`',
-        source[source.index('var wh='):source.index('function Th')])],
+    # Reviews now come only from customer submissions approved in Google Sheets.
 }
 Path('src/data.json').write_text(json.dumps(data, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')

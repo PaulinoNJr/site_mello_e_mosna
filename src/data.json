@@ -41,8 +41,13 @@
       "description": "Mais segurança para viver novas experiências."
     },
     {
+      "icon": "Coins",
+      "title": "Consórcio",
+      "description": "Planeje a conquista do seu imóvel ou veículo."
+    },
+    {
       "icon": "PiggyBank",
-      "title": "Consórcio e Previdência",
+      "title": "Previdência",
       "description": "Planeje hoje o seu futuro."
     },
     {
@@ -113,25 +118,5 @@
     "Parceria com as principais seguradoras do país",
     "Avaliação anual gratuita da sua apólice",
     "Atendimento presencial e digital em todo o Brasil"
-  ],
-  "testimonials": [
-    {
-      "quote": "Depois de um sinistro grave, a equipe da Mello & Mosna resolveu tudo rapidamente. Não precisei falar com a seguradora uma única vez. Atendimento impecável.",
-      "author": "Mariana Costa",
-      "role": "Cliente em Campinas",
-      "initial": "M"
-    },
-    {
-      "quote": "Migrei todos os seguros da minha empresa para a Mello & Mosna e reduzi custos com coberturas melhores. Profissionalismo do início ao fim.",
-      "author": "Roberto Almeida",
-      "role": "Empresário em Sumaré",
-      "initial": "R"
-    },
-    {
-      "quote": "O consultor explicou cada cláusula do seguro de vida com clareza. Pela primeira vez entendi exatamente o que estava comprando. Recomendo demais.",
-      "author": "Juliana Ferreira",
-      "role": "Cliente em Hortolândia",
-      "initial": "J"
-    }
   ]
 }

@@ -12,7 +12,7 @@ test('production HTML contains the business, services and FAQs before JavaScript
   await page.goto('http://127.0.0.1:4180/');
   await expect(page.locator('h1')).toHaveCount(1);
   await expect(page.locator('h1')).toContainText('Corretora de seguros em Hortolândia');
-  await expect(page.locator('.service-card')).toHaveCount(17);
+  await expect(page.locator('.service-card')).toHaveCount(18);
   await page.locator('.office-photo').scrollIntoViewIfNeeded();
   await expect.poll(() => page.locator('.office-photo img').evaluate((img: HTMLImageElement) => img.currentSrc)).toMatch(/\.webp$/);
   await page.evaluate(() => document.fonts.ready);
@@ -40,7 +40,7 @@ test('production hydration preserves the static HTML and interactive menu', asyn
   await expect(page.locator('.mobile-nav')).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(page.locator('.mobile-nav')).toHaveCount(0);
-  await expect(page.locator('.service-card')).toHaveCount(17);
+  await expect(page.locator('.service-card')).toHaveCount(18);
   const robots = await page.locator('meta[name="robots"]').getAttribute('content');
   const canonical = page.locator('link[rel="canonical"]');
   if (robots?.startsWith('index,')) {

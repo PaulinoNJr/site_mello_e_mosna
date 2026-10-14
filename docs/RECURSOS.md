@@ -1,6 +1,6 @@
 # Recursos e referência
 
-Atualização de SEO: os textos de abertura e contato foram adaptados para busca local; foram acrescentadas perguntas frequentes. As fontes usadas no navegador agora são WOFF2 latino/latino estendido obtidas da mesma família no Google Fonts. A fotografia tem derivações WebP em 600/900 px. Os TTF e JPEG originais foram preservados como recursos de origem. A imagem `public/assets/compartilhamento.png` foi renderizada localmente com a composição tipográfica da marca; não é fotografia nem captura da referência. Veja `docs/SEO.md` para a implementação atual.
+Atualização de SEO: os textos de abertura e contato foram adaptados para busca local; foram acrescentadas perguntas frequentes. As fontes usadas no navegador agora são WOFF2 latino/latino estendido obtidas da mesma família no Google Fonts. A fotografia tem derivações WebP em 600/900 px. Os arquivos de origem foram preservados. O compartilhamento usa `public/assets/compartilhamento.png`, regenerado com a nova arte oficial transparente sobre fundo azul. Veja `docs/SEO.md` e `docs/MARCA.md` para a implementação atual.
 
 Consulta: 14/10/2026. Página pública: https://dainty-launch-pixel-flow.base44.app/.
 
@@ -13,7 +13,7 @@ Foram lidos apenas o HTML de entrada e os recursos JS/CSS por ele vinculados. N�
 | Fotografia | https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80, copiada para `public/assets/escritorio.jpg`. Fotografia de banco utilizada pelo original; não foi verificado se retrata instalações reais da empresa. Uso somente em `#sobre`, cover centralizado, altura 400/520 px. Licença: https://unsplash.com/license. |
 | Montserrat | Google Fonts, arquivos TTF de `fonts.gstatic.com`, armazenados em `public/assets/fonts/`. Licença SIL Open Font License incluída em `OFL.txt`, obtida do repositório oficial https://github.com/google/fonts/tree/main/ofl/montserrat. |
 | Ícones | `lucide-react`, licença ISC incluída no pacote. Os nomes dos ícones foram identificados no bundle público (Car, House, Building2, Heart, Bike etc.). MessageCircle representa WhatsApp como no original, sem inserir marca gráfica nova. |
-| Marca e favicon | Marca tipográfica e Shield, seguindo a composição pública. Favicon SVG criado localmente com o mesmo motivo; não é uma afirmação de que o original possuía esse favicon. |
+| Marca e favicon | Artes transparentes fornecidas pelo proprietário em `public/assets/`, sem redesenho. Cabeçalho e rodapé usam WebP; compartilhamento e SEO usam PNG. O favicon e o ícone Apple usam o novo monograma. Veja `MARCA.md`. |
 
 Os recursos baixados para `.reference/` são evidência local ignorada pelo Git e não entram no build. `scripts/extract-reference.py` registra a extração do conteúdo visível para `src/data.json`; não precisa ser executado para instalar, testar ou compilar o projeto. O runtime só utiliza os dados locais já gerados.
 

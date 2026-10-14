@@ -2,11 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ArrowRight, Bike, Briefcase, Building, Building2, Car, Check, CircleCheck,
   Clock, Coins, Facebook, FileCheck, Globe, Headphones, Heart, HeartPulse, House,
   Instagram, KeyRound, Laptop, Mail, MapPin, Menu, MessageCircle, PawPrint, Phone,
-  PiggyBank, Plane, Send, Shield, ShieldCheck, Smartphone, Star, Sun, Zap,
+  PiggyBank, Plane, Send, Shield, ShieldCheck, Smartphone, Sun, Zap,
   type LucideIcon } from 'lucide-react';
 import data from './data.json';
 import seoContent from './seo-content.json';
 import { contact, navigation } from './config';
+import ReviewsSection from './ReviewsSection';
+import PartnersSection from './PartnersSection';
 import { submitQuote, type QuoteService } from './services/quote';
 import Alert from 'react-bootstrap/Alert';
 import Badge from 'react-bootstrap/Badge';
@@ -20,15 +22,19 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import Spinner from 'react-bootstrap/Spinner';
 import './bootstrap.scss';
 import './styles.css';
+import './responsive.css';
 
 const icons: Record<string, LucideIcon> = { Bike, Briefcase, Building, Building2, Car,
   Clock, Coins, FileCheck, Headphones, Heart, HeartPulse, House, KeyRound, Laptop,
   MapPin, PawPrint, PiggyBank, Plane, Smartphone, Sun, Zap };
 
-function Brand() {
+function Brand({ compact = false }: { compact?: boolean }) {
   return <a className="brand" href="#topo" aria-label="Mello & Mosna — início">
-    <span className="brand-symbol gold"><Shield size={20} strokeWidth={2} /></span>
-    <span><strong>Mello & Mosna</strong><small>Corretora de Seguros</small></span>
+    <img src={compact ? '/assets/icone-mello-mosna.png' : '/assets/logo-mello-mosna-544.webp'}
+      width={compact ? 192 : 544} height={compact ? 192 : 272}
+      srcSet={compact ? undefined : '/assets/logo-mello-mosna-272.webp 272w, /assets/logo-mello-mosna-544.webp 544w'}
+      sizes={compact ? undefined : '256px'}
+      alt={compact ? 'Mello & Mosna — monograma M&M' : 'Mello & Mosna — Corretora de Seguros'} decoding="async" />
   </a>;
 }
 
@@ -59,17 +65,17 @@ function Header() {
     const scroll = () => {
       setScrolled(window.scrollY > 24);
       const current = ['#topo', ...navigation.map(([, href]) => href)].reverse()
-        .find(href => (document.querySelector(href)?.getBoundingClientRect().top ?? Infinity) <= 120);
+        .find(href => (document.querySelector(href)?.getBoundingClientRect().top ?? Infinity) <= (document.querySelector('header')?.getBoundingClientRect().height ?? 80) + 40);
       if (current) setActive(current);
     };
     scroll();
-    const resize = () => { if (window.innerWidth >= 1024) setOpen(false); };
+    const resize = () => { if (window.innerWidth >= 1280) setOpen(false); };
     window.addEventListener('scroll', scroll, { passive: true });
     window.addEventListener('resize', resize);
     return () => { window.removeEventListener('scroll', scroll); window.removeEventListener('resize', resize); };
   }, []);
   return <Navbar as="header" className={`header ${scrolled || open ? 'solid' : ''}`}>
-    <Container className="header-row"><Brand />
+    <Container className="header-row"><Brand compact />
       <Nav as="nav" className="desktop-nav" aria-label="Navegação principal">{navigation.map(([label, href]) => <Nav.Link key={href} href={href} active={active === href} aria-current={active === href ? 'location' : undefined}>{label}</Nav.Link>)}</Nav>
       <div className="header-actions"><SocialLinks /><QuoteLink /></div>
       <Button ref={toggle} variant="outline-light" className="menu-toggle" type="button" aria-label="Abrir menu"
@@ -93,8 +99,7 @@ function Hero() {
       <p>{seoContent.intro}</p>
       <div className="hero-buttons"><QuoteLink>Faça sua cotação<ArrowRight size={16} /></QuoteLink>
         <Button variant="outline-light" className="button outline" href="#servicos">Conhecer coberturas</Button></div>
-      <SocialLinks />
-      <div className="trust-indicators">{['15+ anos de experiência', 'Principais seguradoras', 'Atendimento personalizado'].map((text, index) =>
+      <div className="trust-indicators">{['Principais seguradoras', 'Atendimento personalizado'].map((text, index) =>
         <React.Fragment key={text}>{index > 0 && <span className="trust-divider" aria-hidden="true" />}<div><ShieldCheck size={20} strokeWidth={1.5} /><span>{text}</span></div></React.Fragment>)}</div>
     </div>
   </section>;
@@ -151,17 +156,6 @@ function AboutSection() {
   </div></section>;
 }
 
-function TestimonialsSection() {
-  return <section id="depoimentos" className="section tinted"><div className="container">
-    <SectionHeading eyebrow="Depoimentos" title="Quem confia, recomenda" />
-    <div className="testimonials-grid">{data.testimonials.map(item => <Card as="article" className="testimonial-card" key={item.author}>
-      <div className="stars" role="img" aria-label="5 de 5 estrelas">{Array.from({ length: 5 }, (_, i) => <Star key={i} size={16} fill="currentColor" aria-hidden="true" />)}</div>
-      <blockquote>"{item.quote}"</blockquote>
-      <div className="testimonial-author"><span className="avatar gold">{item.initial}</span><div><strong>{item.author}</strong><span>{item.role}</span></div></div>
-    </Card>)}</div>
-  </div></section>;
-}
-
 export function QuoteForm({ service = submitQuote }: { service?: QuoteService }) {
   const [state, setState] = useState<'idle' | 'submitting' | 'complete'>('idle');
   const [error, setError] = useState('');
@@ -184,7 +178,7 @@ export function QuoteForm({ service = submitQuote }: { service?: QuoteService })
       <h3>Demonstração concluída</h3><p>Sua solicitação não foi enviada. Este formulário é uma demonstração local e não armazena os dados informados.</p>
       <QuoteLink>Falar pelo WhatsApp<ArrowRight size={16} /></QuoteLink>
       <Button variant="link" type="button" className="reset-form" onClick={() => setState('idle')}>Voltar ao formulário</Button>
-    </div> : <Form onSubmit={handleSubmit} aria-describedby="demo-notice" aria-busy={state === 'submitting'}>
+    </div> : <Form onSubmit={handleSubmit} aria-busy={state === 'submitting'}>
       <div className="form-heading"><span className="eyebrow">Conte com a nossa equipe</span><h3>O primeiro passo para sua proteção</h3><p>Escolha a modalidade e conheça os canais de atendimento.</p></div>
       <Form.Group className="field" controlId="nome"><Form.Label>Nome completo</Form.Label><Form.Control name="nome" type="text" autoComplete="name" placeholder="Seu nome" required /></Form.Group>
       <div className="form-row"><Form.Group className="field" controlId="email"><Form.Label>E-mail</Form.Label><Form.Control name="email" type="email" autoComplete="email" placeholder="seu@email.com" required /></Form.Group>
@@ -193,7 +187,6 @@ export function QuoteForm({ service = submitQuote }: { service?: QuoteService })
         <option value="" disabled>Selecione uma opção</option>{[...data.services.map(s => s.title), 'Outro'].map(title => <option value={title} key={title}>{title}</option>)}
       </Form.Select></Form.Group>
       <Form.Group className="field" controlId="mensagem"><Form.Label>Mensagem (opcional)</Form.Label><Form.Control as="textarea" name="mensagem" rows={4} placeholder="Conte-nos sobre o que deseja proteger..." /></Form.Group>
-      <Alert variant="warning" className="demo-notice" id="demo-notice" role="note">Modo demonstrativo: a solicitação não será enviada. Para atendimento, fale pelo WhatsApp.</Alert>
       {error && <Alert variant="danger" className="form-error" role="alert">{error}</Alert>}
       <Button className="button gold submit-button" type="submit" disabled={state === 'submitting'}>{state === 'submitting' ? <><Spinner animation="border" size="sm" aria-hidden="true" />Validando demonstração...</> : <>Enviar solicitação<Send size={16} /></>}</Button>
     </Form>}</Card>;
@@ -220,7 +213,7 @@ function ContactSection() {
 function Footer() {
   const groups = {
     Serviços: [['Auto', '#servicos'], ['Residencial', '#servicos'], ['Saúde', '#servicos'], ['Vida', '#servicos']],
-    Empresa: [['Sobre nós', '#sobre'], ['Diferenciais', '#diferenciais'], ['Depoimentos', '#depoimentos'], ['Contato', '#contato']],
+    Empresa: [['Sobre nós', '#sobre'], ['Diferenciais', '#diferenciais'], ['Avaliações', '#depoimentos'], ['Contato', '#contato']],
     Legal: [['Política de Privacidade', '#'], ['Termos de Uso', '#']],
   };
   return <footer><div className="container footer-container"><div className="footer-grid">
@@ -228,18 +221,43 @@ function Footer() {
     {Object.entries(groups).map(([title, links]) => <nav key={title} aria-label={title}><h3>{title}</h3><ul>{links.map(([label, href]) => <li key={label}><a href={href}>{label}</a></li>)}</ul></nav>)}
     </div><div className="footer-contact"><div><a href={contact.tel}>{contact.phone}</a><span className="divider">|</span><a href={contact.mailto}>{contact.email}</a><span className="divider">|</span><span><Globe size={16} />{contact.locations}</span></div>
       <span className="footer-national"><Globe size={16} />Atendimento todo Brasil</span></div>
-    <div className="footer-insurers"><InsurersNote /></div>
+    <div className="footer-insurers"><PartnersSection /></div>
     <p className="copyright">© {new Date().getFullYear()} Mello & Mosna Corretora de Seguros. Todos os direitos reservados.</p>
   </div></footer>;
 }
 
 export default function App() {
+  const [editingForm, setEditingForm] = useState(false);
+  const contactBar = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const updateBarSpace = () => {
+      document.documentElement.style.setProperty('--contact-bar-space', `${contactBar.current?.getBoundingClientRect().height ?? 0}px`);
+    };
+    updateBarSpace();
+    const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(updateBarSpace);
+    if (contactBar.current) observer?.observe(contactBar.current);
+    window.addEventListener('resize', updateBarSpace);
+    return () => { observer?.disconnect(); window.removeEventListener('resize', updateBarSpace); document.documentElement.style.removeProperty('--contact-bar-space'); };
+  }, []);
+  useEffect(() => {
+    const trackFocus = (event: FocusEvent) => {
+      const target = event.type === 'focusout' ? event.relatedTarget : event.target;
+      setEditingForm(target instanceof HTMLElement && target.matches('input, textarea, select, iframe.reviews-frame'));
+    };
+    const trackFrameFocus = () => {
+      if (document.activeElement?.matches('iframe.reviews-frame')) setEditingForm(true);
+    };
+    document.addEventListener('focusin', trackFocus);
+    document.addEventListener('focusout', trackFocus);
+    window.addEventListener('blur', trackFrameFocus);
+    return () => { document.removeEventListener('focusin', trackFocus); document.removeEventListener('focusout', trackFocus); window.removeEventListener('blur', trackFrameFocus); };
+  }, []);
   useEffect(() => {
     if (window.location.hash) {
       try { document.getElementById(decodeURIComponent(window.location.hash.slice(1)))?.scrollIntoView({ behavior: 'instant' }); } catch { /* Ignore malformed hashes. */ }
     }
   }, []);
   return <><a className="skip-link" href="#servicos">Pular para o conteúdo</a><Header /><main><Hero /><ServicesSection />
-    <DifferentialsSection /><AboutSection /><TestimonialsSection /><ContactSection /></main><Footer />
-    <aside className="mobile-contact-bar" aria-label="Atendimento rápido"><a className="quick-phone" href={contact.tel} aria-label="Ligar para a corretora"><Phone size={20} /></a><QuoteLink>Falar com a corretora<ArrowRight size={16} /></QuoteLink></aside></>;
+    <DifferentialsSection /><AboutSection /><ReviewsSection /><ContactSection /></main><Footer />
+    <aside ref={contactBar} className="mobile-contact-bar" hidden={editingForm} aria-label="Atendimento rápido"><a className="quick-phone" href={contact.tel} aria-label="Ligar para a corretora"><Phone size={20} /></a><QuoteLink>Cotar pelo WhatsApp<ArrowRight size={16} /></QuoteLink></aside></>;
 }

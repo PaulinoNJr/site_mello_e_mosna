@@ -1,0 +1,129 @@
+/* Content-driven layout: works between device presets, including split-screen. */
+:root { --header-height: 80px; --page-gutter: clamp(16px, 3vw, 40px); --contact-bar-space: 0px; }
+body { padding-bottom: var(--contact-bar-space); }
+section { scroll-margin-top: var(--header-height); }
+.header-row { height: var(--header-height); gap: 16px; }
+.container, .hero-container {
+  width: 100%;
+  padding-left: max(var(--page-gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--page-gutter), env(safe-area-inset-right, 0px));
+}
+.hero { padding-top: calc(var(--header-height) + clamp(24px, 3vw, 44px)); padding-bottom: clamp(28px, 3vw, 44px); }
+.hero-container { max-width: 1120px; }
+.hero h1 { font-size: clamp(1.75rem, 4.2vw, 3.5rem); line-height: 1.14; overflow-wrap: break-word; }
+.hero p, .section-heading p, .lead { font-size: clamp(1rem, 1.3vw, 1.125rem); line-height: 1.6; }
+.hero p { max-width: 800px; margin-top: 18px; }
+.hero-buttons { margin-top: 24px; gap: 12px; }
+.hero-buttons .button { padding-block: 12px; }
+.hero > div > .social-links { margin-top: 20px; gap: 12px; }
+.trust-indicators { margin-top: 24px; gap: 16px 24px; }
+.national-badge { max-width: 100%; margin-bottom: 18px; white-space: normal; line-height: 1.7; letter-spacing: clamp(1px, .22vw, 2.4px); }
+.national-badge > span { flex-shrink: 0; }
+.section { padding-block: clamp(32px, 4vw, 56px); }
+.section-heading { max-width: 800px; margin-bottom: clamp(20px, 2vw, 28px); }
+.section-heading p { margin-top: 16px; }
+h2 { margin-top: 10px; font-size: clamp(1.625rem, 2.7vw, 2.375rem); line-height: 1.2; overflow-wrap: break-word; }
+.heading-rule { margin-top: 12px; }
+.services-grid { gap: 14px; }
+.service-card { padding: 18px; }
+.service-icon, .tile-icon { width: 40px; height: 40px; margin-bottom: 12px; }
+.differential-card { padding: 20px; }
+.differential-card h3 { margin-bottom: 8px; }
+.about-copy .lead, .contact-intro { margin-top: 16px; }
+.benefits { margin-top: 20px; gap: 12px; }
+.about-copy > .insurers-note { margin-top: 20px; }
+.local-service { margin-top: 20px; padding-top: 16px; }
+.local-service p, .local-service a { margin-top: 10px; }
+.contact-details { margin-top: 24px; gap: 16px; }
+.contact-direct { margin-top: 20px; gap: 12px; }
+.contact-faq { margin-top: 24px; }
+.contact-faq > h3 { margin-bottom: 12px; }
+.contact-faq .accordion-item { margin-top: 8px; }
+.contact-faq .accordion-button { padding: 14px; }
+.quote-panel { padding: clamp(18px, 2vw, 28px); }
+.quote-panel form, .form-row { gap: 14px; }
+.form-heading h3 { margin-top: 8px; font-size: 22px; }
+.demo-result { min-height: 360px; padding-block: 20px; }
+.services-grid, .differentials-grid, .testimonials-grid, .about-grid, .contact-grid, .footer-grid, .form-row { min-width: 0; }
+.services-grid > *, .differentials-grid > *, .testimonials-grid > *, .about-grid > *, .contact-grid > *, .footer-grid > *, .form-row > * { min-width: 0; }
+.button { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+.contact-direct { width: 100%; }
+.brand { min-width: 0; }
+.reviews-frame { display: block; width: 100%; height: 1120px; border: 0; border-radius: 14px; background: #0c1d34; }
+@media (min-width: 1024px) { .reviews-frame { height: 850px; } }
+.header .brand img { width: calc(var(--header-height) - 12px); aspect-ratio: 1; }
+.testimonials-grid, .differentials-grid { gap: clamp(16px, 2vw, 24px); }
+.contact-grid, .about-grid { gap: clamp(24px, 3vw, 40px); }
+.field input, .field select, .field textarea { font-size: 1rem; scroll-margin-block: calc(var(--header-height) + 20px) 24px; }
+.contact-faq .accordion-button { min-height: 48px; gap: 12px; overflow-wrap: anywhere; }
+.insurers-note { max-width: 100%; }
+.insurers-note span, .footer-contact a, .footer-contact > div > span:last-child, .copyright { overflow-wrap: anywhere; }
+.footer-contact > div > span:last-child { min-width: 0; }
+.footer-container { padding-block: clamp(24px, 3vw, 40px); }
+.footer-grid { gap: 24px; }
+.footer-brand > p, .footer-brand .social-links { margin-top: 12px; }
+.footer-grid nav h3 { margin-bottom: 10px; }
+.footer-grid nav li + li { margin-top: 4px; }
+.footer-contact { margin-top: 24px; padding-top: 20px; gap: 16px; }
+.footer-insurers { margin-top: 20px; }
+.partners-panel { width: 100%; padding: 18px 20px; border-radius: 12px; background: #fff; color: #172843; }
+.partners-title { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 0 0 12px; font-size: 13px; line-height: 1.5; letter-spacing: 1.4px; font-weight: 700; text-align: center; }
+.partners-title::before, .partners-title::after { content: ''; flex: 1; min-width: 12px; height: 1px; background: #9caabe; }
+.partners-title > span { min-width: 0; text-wrap: balance; }
+.partners-logos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 14px; margin: 0; padding: 0; list-style: none; }
+.partner-logo { min-width: 0; min-height: 56px; display: flex; align-items: center; justify-content: center; padding: 6px; }
+.partner-logo img { display: block; width: 164px; max-width: 100%; height: 44px; object-fit: contain; }
+.partner-itau img { width: 44px; }
+@media (min-width: 640px) and (max-width: 899px) { .partners-logos { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 900px) { .partners-logos { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+@media (max-width: 359px) { .partners-panel { padding: 16px 12px; } .partners-title { gap: 8px; font-size: 12px; letter-spacing: .8px; } .partners-logos { gap: 6px; } }
+.copyright { margin-top: 20px; padding-top: 16px; }
+.mobile-contact-bar, .mobile-contact-bar[hidden] { display: none; }
+.mobile-contact-bar { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.mobile-drawer { max-height: 100vh; max-height: 100dvh; }
+.mobile-drawer .offcanvas-header { padding-top: max(20px, env(safe-area-inset-top, 0px)); }
+.mobile-drawer .offcanvas-body { padding-bottom: max(24px, env(safe-area-inset-bottom, 0px)); overscroll-behavior-y: contain; }
+.mobile-drawer .btn-close { min-width: 24px; min-height: 24px; padding: 10px; }
+@media (max-width: 1279px) {
+  .desktop-nav, .header-actions { display: none; }
+  .menu-toggle { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .mobile-drawer .mobile-nav { display: flex; }
+  .office-photo { height: clamp(260px, 50vw, 440px); }
+}
+@media (min-width: 640px) and (max-width: 1279px) { .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 639px) {
+  .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 16px; }
+  .footer-brand, .footer-grid nav[aria-label='Legal'] { grid-column: 1 / -1; }
+  .footer-grid nav[aria-label='Legal'] ul { display: flex; flex-wrap: wrap; gap: 4px 20px; }
+  .footer-grid nav[aria-label='Legal'] li + li { margin-top: 0; }
+  .footer-brand .brand img { width: 208px; }
+  .services-grid { gap: 12px; }
+  .service-card { padding: 16px 12px; }
+  .hero-buttons .button { width: 100%; padding-inline: 20px; }
+  .trust-indicators { gap: 12px; }
+  .testimonial-author { gap: 12px; }
+  .testimonial-author strong { font-size: 14px; }
+  .testimonial-author div > span { font-size: 13px; }
+}
+@media (max-width: 359px) {
+  .header-row { gap: 8px; }
+  .national-badge { font-size: 10px; padding-inline: 12px; }
+  .mobile-contact-bar { gap: 8px; }
+  .mobile-contact-bar .button { font-size: 11px; padding-inline: 12px; }
+}
+@media (max-width: 339px) { .services-grid { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 767px) and (min-height: 501px) {
+  :root { --contact-bar-space: calc(72px + env(safe-area-inset-bottom, 0px)); }
+  .mobile-contact-bar:not([hidden]) { display: flex; }
+}
+@media (max-height: 500px) and (max-width: 1279px) {
+  :root { --header-height: 64px; }
+  .hero { padding-top: calc(var(--header-height) + 32px); }
+  .mobile-drawer .offcanvas-header { padding-block: 12px; }
+  .mobile-drawer .mobile-nav { padding-top: 12px; }
+}
+@media (pointer: coarse) {
+  .social { min-width: 44px; min-height: 44px; }
+  .footer-grid nav a { min-height: 44px; display: inline-flex; align-items: center; }
+  .desktop-nav .nav-link { min-height: 44px; display: flex; align-items: center; }
+}

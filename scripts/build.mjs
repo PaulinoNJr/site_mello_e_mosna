@@ -3,11 +3,13 @@ import { pathToFileURL } from 'node:url';
 import path from 'node:path';
 import { build } from 'vite';
 import { buildSeo } from './seo.mjs';
+import { buildReviews } from './build-reviews.mjs';
 
 const readJson = async name => JSON.parse(await fs.readFile(name, 'utf8'));
 const config = await readJson('site.config.json');
 const content = await readJson('src/seo-content.json');
 const data = await readJson('src/data.json');
+await buildReviews();
 // Render the same application and configuration used by the browser, without a browser dependency.
 await build({ build: { emptyOutDir: true } });
 await build({ build: { ssr: 'src/prerender.tsx', outDir: '.prerender', emptyOutDir: true } });

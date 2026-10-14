@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="pt-BR" data-bs-theme="dark">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow"><base target="_top">
+  <title>Avaliações — Mello &amp; Mosna</title>
+  <style>/* BOOTSTRAP_CSS */</style>
+  <style>
+    :root { color-scheme: dark; --bs-body-bg:#0c1d34; --bs-body-color:#f6f7fa; --bs-border-color:#344761; }
+    [hidden] { display:none!important; }
+    body { margin:0; padding:4px 2px 12px; font-family:system-ui,sans-serif; line-height:1.55; background:#0c1d34; }
+    .review-layout { display:grid; grid-template-columns:minmax(0,1fr); gap:24px; }
+    .review-layout>* { min-width:0; } h2 { font-size:1.4rem; line-height:1.35; margin-bottom:16px; }
+    .muted { color:#bdc9d9; } .card { border-color:#344761; background:#0a182e; border-radius:14px; }
+    .card-body { padding:clamp(16px,2vw,24px); }
+    .published-panel { padding:16px 20px; border:1px solid #344761; border-radius:14px; background:#10233c; }
+    .published-panel h2 { margin-bottom:12px; font-size:1.25rem; }
+    .review-list { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+    .review-empty { grid-column:1/-1; margin:0; }
+    .review-stars { color:#e0c285; letter-spacing:3px; } .review-card blockquote { margin:14px 0; white-space:pre-wrap; overflow-wrap:anywhere; }
+    .review-card strong,.review-card small { display:block; overflow-wrap:anywhere; }
+    .form-label { font-weight:600; } .form-control { min-height:48px; font-size:16px; background:#10233c; border-color:#40536d; }
+    .form-control:focus { background:#10233c; border-color:#d2b171; box-shadow:0 0 0 .2rem #d2b17133; }
+    #review-form { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px 18px; }
+    #review-form>.field:has(textarea), .consent, #moderation-notice, #form-error, #submit-review { grid-column:1/-1; }
+    .field { min-width:0; margin:0; } .rating-options { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:6px; }
+    .rating-option { cursor:pointer; display:inline-flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; min-width:0; min-height:64px; padding:6px 2px; border:1px solid #40536d; border-radius:8px; }
+    .rating-option:has(input:checked) { background:#d2b171; color:#0a182e; border-color:#d2b171; }
+    input[type=radio],input[type=checkbox] { accent-color:#c59f59; width:20px; height:20px; flex-shrink:0; }
+    .consent { display:flex; align-items:flex-start; gap:12px; min-height:48px; cursor:pointer; font-size:.9rem; }
+    .consent input { margin-top:4px; } .btn-primary { --bs-btn-bg:#d2b171; --bs-btn-border-color:#d2b171; --bs-btn-color:#0a182e; --bs-btn-hover-bg:#e0c285; --bs-btn-hover-border-color:#e0c285; --bs-btn-hover-color:#0a182e; --bs-btn-disabled-bg:#d2b171; --bs-btn-disabled-border-color:#d2b171; --bs-btn-disabled-color:#0a182e; font-weight:700; min-height:48px; white-space:normal; }
+    :focus-visible { outline:2px solid #e0c285; outline-offset:4px; }
+    .trap { position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden; }
+    .notice { margin-bottom:16px; } .counter { display:block; margin-top:4px; text-align:right; font-size:.8rem; }
+    #moderation-notice { margin-bottom:0; }
+    @media(min-width:768px) and (max-width:1023px) { .review-list { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+    @media(max-width:767px) { #review-form, .review-list { grid-template-columns:minmax(0,1fr); } .published-panel { padding:16px; } }
+    @media(prefers-reduced-motion:reduce) { * { scroll-behavior:auto!important; transition:none!important; } }
+  </style>
+</head>
+<body>
+  <main class="review-layout">
+    <section id="published-section" class="published-panel" aria-labelledby="published-title">
+      <h2 id="published-title">Avaliações publicadas</h2>
+      <div id="reviews" class="review-list" aria-busy="true"><p class="muted">Carregando avaliações...</p></div>
+    </section>
+    <section id="submission-section" class="submission card" aria-labelledby="form-title"><div class="card-body">
+      <h2 id="form-title">Deixe sua avaliação</h2>
+      <p class="muted">Sua opinião ajuda a melhorar nosso atendimento.</p>
+      <div id="availability" class="alert alert-warning notice" hidden></div>
+      <form id="review-form" aria-describedby="moderation-notice">
+        <div class="field"><label class="form-label" for="review-name">Nome para publicação</label>
+          <input class="form-control" id="review-name" name="name" autocomplete="name" minlength="2" maxlength="100" required></div>
+        <div class="field"><label class="form-label" for="review-email">E-mail para contato</label>
+          <input class="form-control" id="review-email" name="email" type="email" autocomplete="email" maxlength="254" aria-describedby="email-help" required>
+          <small id="email-help" class="muted">Seu e-mail não será publicado.</small></div>
+        <div class="field"><label class="form-label" for="review-city">Cidade (opcional)</label>
+          <input class="form-control" id="review-city" name="city" autocomplete="address-level2" maxlength="80"></div>
+        <fieldset class="field"><legend class="form-label fs-6">Sua nota</legend><div class="rating-options">
+          <label class="rating-option"><input type="radio" name="rating" value="1" required aria-label="1 estrela"><span aria-hidden="true">1 ★</span></label>
+          <label class="rating-option"><input type="radio" name="rating" value="2" required aria-label="2 estrelas"><span aria-hidden="true">2 ★</span></label>
+          <label class="rating-option"><input type="radio" name="rating" value="3" required aria-label="3 estrelas"><span aria-hidden="true">3 ★</span></label>
+          <label class="rating-option"><input type="radio" name="rating" value="4" required aria-label="4 estrelas"><span aria-hidden="true">4 ★</span></label>
+          <label class="rating-option"><input type="radio" name="rating" value="5" required aria-label="5 estrelas"><span aria-hidden="true">5 ★</span></label>
+        </div></fieldset>
+        <div class="field"><label class="form-label" for="review-message">Conte sua experiência</label>
+          <textarea class="form-control" id="review-message" name="message" rows="3" minlength="10" maxlength="1500" required aria-describedby="message-help"></textarea>
+          <small id="message-help" class="muted">De 10 a 1.500 caracteres. Evite incluir documentos, dados de apólices ou outras informações privadas.</small>
+          <span class="counter muted" id="counter">0 / 1.500</span></div>
+        <div class="trap" aria-hidden="true"><label for="review-website">Website</label><input id="review-website" name="website" tabindex="-1" autocomplete="off"></div>
+        <label class="consent field"><input type="checkbox" name="consent" required>
+          <span>Autorizo a publicação do meu nome, cidade, nota e comentário após aprovação. Meu e-mail ficará restrito à equipe.</span></label>
+        <p id="moderation-notice" class="muted small">O envio não publica a avaliação automaticamente. Todas as avaliações passam por análise.</p>
+        <div id="form-error" class="alert alert-danger" role="alert" hidden></div>
+        <button class="btn btn-primary w-100" type="submit" id="submit-review" disabled>Enviar avaliação para análise</button>
+      </form>
+      <div id="success" class="alert alert-success" role="status" tabindex="-1" hidden>
+        <strong>Avaliação recebida!</strong><p class="mb-0">Sua avaliação foi enviada para análise. Ela aparecerá no site somente após aprovação da nossa equipe.</p>
+      </div>
+    </div></section>
+  </main>
+  <script>
+  (() => {
+    'use strict';
+    const $ = id => document.getElementById(id);
+    const active = Boolean(window.google && window.google.script && window.google.script.run);
+    const form = $('review-form'), submit = $('submit-review');
+    let requestId = null;
+    if (window.parent !== window && typeof ResizeObserver !== 'undefined') {
+      new ResizeObserver(() => window.parent.postMessage({ type: 'mello-mosna-reviews-height', height: document.body.scrollHeight + 16 }, '*')).observe(document.body);
+    }
+    function rpc(method, payload) {
+      return new Promise((resolve, reject) => {
+        const runner = google.script.run.withSuccessHandler(resolve).withFailureHandler(reject);
+        if (method === 'listarAprovadas') runner.listarAprovadas();
+        else runner.enviarAvaliacao(payload);
+      });
+    }
+    function displayReviews(reviews) {
+      $('reviews').replaceChildren(); $('reviews').setAttribute('aria-busy', 'false');
+      if (!reviews.length) { const empty = document.createElement('p'); empty.className = 'muted review-empty'; empty.textContent = 'Ainda não há avaliações publicadas. As avaliações aprovadas aparecerão aqui.'; $('reviews').append(empty); return; }
+      reviews.forEach(review => {
+        const article = document.createElement('article'); article.className = 'card review-card';
+        const body = document.createElement('div'); body.className = 'card-body';
+        const stars = document.createElement('div'); stars.className = 'review-stars'; stars.setAttribute('role','img'); stars.setAttribute('aria-label', review.rating + ' de 5 estrelas'); stars.textContent = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+        const quote = document.createElement('blockquote'); quote.textContent = review.message;
+        const author = document.createElement('strong'); author.textContent = review.name;
+        const city = document.createElement('small'); city.className = 'muted'; city.textContent = review.city;
+        body.append(stars,quote,author,city); article.append(body); $('reviews').append(article);
+      });
+    }
+    $('review-message').addEventListener('input', () => { $('counter').textContent = $('review-message').value.length + ' / 1.500'; });
+    if (active) {
+      submit.disabled = false;
+      rpc('listarAprovadas').then(displayReviews).catch(() => {
+        $('published-section').hidden = false;
+        $('reviews').setAttribute('aria-busy','false'); $('reviews').replaceChildren();
+        const message = document.createElement('p'); message.className = 'muted'; message.textContent = 'Não foi possível carregar as avaliações. Tente novamente mais tarde.'; $('reviews').append(message);
+      });
+    } else {
+      displayReviews([]); $('availability').hidden = false;
+      $('availability').textContent = 'O envio de avaliações estará disponível em breve. Para atendimento, entre em contato com a equipe.';
+    }
+    form.addEventListener('submit', async event => {
+      event.preventDefault(); if (!active || submit.disabled || !form.reportValidity()) return;
+      const values = new FormData(form);
+      requestId ||= crypto.randomUUID();
+      const payload = { name: String(values.get('name')).trim(), email: String(values.get('email')).trim(), city: String(values.get('city')).trim(),
+        rating: Number(values.get('rating')), message: String(values.get('message')).trim(), consent: values.get('consent') === 'on', website: String(values.get('website')), requestId };
+      $('form-error').hidden = true; submit.disabled = true; submit.textContent = 'Enviando avaliação...'; form.setAttribute('aria-busy','true');
+      try {
+        const result = await rpc('enviarAvaliacao', payload);
+        if (!result || result.status !== 'PENDENTE') throw new Error('Não foi possível confirmar o recebimento.');
+        form.hidden = true; $('success').hidden = false; $('success').focus();
+      } catch (error) {
+        $('form-error').hidden = false; $('form-error').textContent = error && error.message || 'Não foi possível enviar. Seus campos foram mantidos; tente novamente.';
+        submit.disabled = false;
+      } finally { submit.textContent = 'Enviar avaliação para análise'; form.setAttribute('aria-busy','false'); }
+    });
+  })();
+  </script>
+</body>
+</html>

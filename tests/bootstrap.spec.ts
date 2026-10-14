@@ -28,8 +28,7 @@ test('forms expose Bootstrap controls and keep native required validation', asyn
   await page.goto('/');
   await expect(page.locator('#nome')).toHaveClass(/form-control/);
   await expect(page.locator('#tipo')).toHaveClass(/form-select/);
-  await expect(page.locator('.service-card.card')).toHaveCount(17);
-  await expect(page.locator('.demo-notice')).toHaveRole('note');
+  await expect(page.locator('.service-card.card')).toHaveCount(18);
   await page.locator('.submit-button').click();
   await expect(page.locator('#nome:invalid')).toHaveCount(1);
   await expect(page.locator('.demo-result')).toHaveCount(0);

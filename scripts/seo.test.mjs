@@ -18,7 +18,7 @@ test('official HTTPS domain produces consistent canonical, sitemap, social and s
   assert.match(result.robotsTxt, /Sitemap: https:\/\/seguros.example\/sitemap.xml/);
   const graph = JSON.parse(result.head.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1])['@graph'];
   assert.deepEqual(graph.map(item => item['@type']), ['Organization', 'WebSite', 'WebPage']);
-  assert.equal(graph[0].hasOfferCatalog.itemListElement.length, 17);
+  assert.equal(graph[0].hasOfferCatalog.itemListElement.length, 18);
   assert.equal(graph[0].address, undefined);
   assert.equal(graph[0].aggregateRating, undefined);
   assert.equal(graph[0].review, undefined);

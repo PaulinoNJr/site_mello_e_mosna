@@ -8,10 +8,10 @@ Atualizado em 14/10/2026. Esta etapa evolui a réplica visual para um site prepa
 - Um H1 descritivo com a corretora e a região de atendimento. Title e description com intenção local, sem listar cidades repetidamente em páginas artificiais.
 - Informações úteis sobre contato e quatro perguntas frequentes visíveis, sem criar coberturas, preços, endereços, horários ou condições comerciais.
 - JSON-LD com `Organization`, `WebSite` e `WebPage`, contatos e redes da referência. Não foi incluído endereço nem marcação `LocalBusiness`/`InsuranceAgency` elegível a recurso local, pois não há endereço físico confirmado. Não foram marcados depoimentos como `Review` ou `AggregateRating`. Não há promessa de estrelas ou resultado enriquecido.
-- Canonical, Open Graph, Twitter Card e imagem de compartilhamento 1.200 × 630 px. URLs absolutas derivam exclusivamente do domínio oficial configurado.
+- Open Graph e Twitter Card usam uma composição de 1.200 × 630 px com a nova marca oficial. `Organization.logo` identifica o PNG completo de 1.774 × 887 px, com extensão e tipo MIME corretos. URLs absolutas e canonical derivam exclusivamente do domínio oficial configurado.
 - Sitemap XML com somente a URL real `/`. Âncoras não são páginas independentes e não entram no sitemap. Sem lastmod inventado.
 - Robots.txt permite rastreamento de conteúdo e assets e informa o sitemap quando a produção está configurada. `noindex` é controlado por meta tag, não por bloqueio em robots.txt.
-- Fontes WOFF2 locais com subsets latino/latino estendido e preload do subconjunto principal. Os dois arquivos somam 108.644 bytes; os cinco TTF anteriores somavam cerca de 905 KB. O navegador carrega só os subconjuntos necessários. Os TTF continuam no repositório como fonte da imagem de compartilhamento.
+- Fontes WOFF2 locais com subsets latino/latino estendido e preload do subconjunto principal. Os dois arquivos somam 108.644 bytes; os cinco TTF anteriores somavam cerca de 905 KB. O navegador carrega só os subconjuntos necessários. Os TTF continuam no repositório como arquivos de origem.
 - Foto em WebP responsivo: 15.028 bytes em 600 px e 27.072 bytes em 900 px, com JPEG de fallback (75.141 bytes), lazy loading, dimensões reservadas e decodificação assíncrona. O alt agora informa que é imagem ilustrativa.
 - Página 404 no build e exemplo de Nginx com status 404 real, HTTPS, compressão e cache de arquivos. A configuração do servidor depende da hospedagem escolhida.
 

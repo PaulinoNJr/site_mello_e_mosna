@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 const names = ['Auto', 'Residencial', 'Empresarial', 'Vida', 'Moto', 'Saúde', 'Pet', 'Viagem',
-  'Consórcio e Previdência', 'Fiança Locatícia', 'RC Profissional', 'Condomínio', 'Celular',
+  'Consórcio', 'Previdência', 'Fiança Locatícia', 'RC Profissional', 'Condomínio', 'Celular',
   'Aparelhos Eletrônicos', 'Placas Solares', 'Veículos Elétricos', 'Capitalização'];
 
 test('service rejection preserves input and allows retry', async ({ page }) => {
@@ -21,8 +21,9 @@ test('content, destinations, native validation and demo without network writes',
   const writes: string[] = [];
   page.on('request', request => { if (!['GET', 'HEAD'].includes(request.method())) writes.push(request.url()); });
   await page.goto('/');
+  await page.evaluate(() => document.fonts.ready);
   await expect(page.locator('.service-card h3')).toHaveText(names);
-  await expect(page.locator('select option')).toHaveCount(19);
+  await expect(page.locator('select option')).toHaveCount(20);
   await expect(page.locator('select option').first()).toHaveAttribute('value', '');
   await expect(page.locator('select option').last()).toHaveText('Outro');
   await expect(page.locator('input[required], select[required], textarea[required]')).toHaveCount(4);
@@ -39,7 +40,7 @@ test('content, destinations, native validation and demo without network writes',
     await expect(link).toHaveAttribute('href', 'https://wa.me/5519983422822?text=Gostaria%20de%20uma%20cota%C3%A7%C3%A3o%20de%20seguro!');
   }
   await expect(page.locator('.desktop-nav a').last()).toHaveAttribute('href', '#contato');
-  await expect(page.locator('footer a[href="tel:+5519983556682"]')).toHaveCount(1);
+  await expect(page.locator('footer a[href="tel:+5519983422822"]')).toHaveCount(1);
   await expect(page.locator('footer a[href="mailto:atendimento@mellomosnaseguros.com.br"]')).toHaveCount(1);
   await expect(page.locator('footer nav[aria-label="Serviços"] a[href="#servicos"]')).toHaveCount(4);
   await expect(page.locator('footer nav[aria-label="Legal"] a[href="#"]')).toHaveCount(2);
