@@ -1,5 +1,6 @@
 export const contact = {
-  whatsapp: 'https://wa.me/5519983556682',
+  whatsapp: `https://wa.me/5519983422822?text=${encodeURIComponent('Gostaria de uma cotação de seguro!')}`,
+  whatsappPhone: '(19) 98342-2822',
   instagram: 'https://www.instagram.com/mellomosnaconsultoria/',
   facebook: 'https://www.facebook.com/profile.php?id=61593576255730',
   phone: '(19) 98355-6682',

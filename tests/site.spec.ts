@@ -31,10 +31,13 @@ test('content, destinations, native validation and demo without network writes',
     await expect(page.locator(`section#${anchor}`)).toHaveCount(1);
   }
   for (const button of [page.locator('.header-actions > .button'), page.locator('.hero-buttons > .button.gold')]) {
-    await expect(button).toHaveAttribute('href', 'https://wa.me/5519983556682');
+    await expect(button).toHaveAttribute('href', 'https://wa.me/5519983422822?text=Gostaria%20de%20uma%20cota%C3%A7%C3%A3o%20de%20seguro!');
     await expect(button).toHaveAttribute('rel', 'noopener noreferrer');
   }
   await expect(page.locator('.hero-buttons .outline')).toHaveAttribute('href', '#servicos');
+  for (const link of await page.locator('a[aria-label="WhatsApp"]').all()) {
+    await expect(link).toHaveAttribute('href', 'https://wa.me/5519983422822?text=Gostaria%20de%20uma%20cota%C3%A7%C3%A3o%20de%20seguro!');
+  }
   await expect(page.locator('.desktop-nav a').last()).toHaveAttribute('href', '#contato');
   await expect(page.locator('footer a[href="tel:+5519983556682"]')).toHaveCount(1);
   await expect(page.locator('footer a[href="mailto:atendimento@mellomosnaseguros.com.br"]')).toHaveCount(1);

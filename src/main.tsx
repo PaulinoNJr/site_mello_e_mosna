@@ -204,7 +204,8 @@ function ContactSection() {
     <div><span className="eyebrow">Contato</span><h2>Faça sua cotação</h2><div className="gold heading-rule" />
       <p className="lead contact-intro">Solicite sua cotação pelo WhatsApp ou entre em contato por e-mail. O formulário abaixo é demonstrativo; para iniciar o atendimento, utilize um dos nossos canais.</p>
       <div className="contact-details">
-        <div><span className="contact-icon"><Phone size={20} strokeWidth={1.5} /></span><div><small>Telefone / WhatsApp</small><a href={contact.tel}>{contact.phone}</a></div></div>
+        <div><span className="contact-icon"><MessageCircle size={20} strokeWidth={1.5} /></span><div><small>WhatsApp</small><a href={contact.whatsapp} target="_blank" rel="noopener noreferrer">{contact.whatsappPhone}</a></div></div>
+        <div><span className="contact-icon"><Phone size={20} strokeWidth={1.5} /></span><div><small>Telefone</small><a href={contact.tel}>{contact.phone}</a></div></div>
         <div><span className="contact-icon"><Mail size={20} strokeWidth={1.5} /></span><div><small>E-mail</small><a href={contact.mailto}>{contact.email}</a></div></div>
         <div><span className="contact-icon"><MapPin size={20} strokeWidth={1.5} /></span><div><small>Atendimento</small><strong>{contact.locations}</strong></div></div>
       </div>

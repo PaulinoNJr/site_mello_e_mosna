@@ -21,7 +21,7 @@ test('mobile drawer keeps keyboard focus, closes with Escape and navigates to co
   await expect(drawer).toHaveCount(0);
   await expect(page.locator('#contato h2')).toBeInViewport();
   await expect(page.locator('.desktop-nav a[href="#contato"]')).toHaveAttribute('aria-current', 'location');
-  await expect(page.locator('.mobile-contact-bar a.button')).toHaveAttribute('href', 'https://wa.me/5519983556682');
+  await expect(page.locator('.mobile-contact-bar a.button')).toHaveAttribute('href', 'https://wa.me/5519983422822?text=Gostaria%20de%20uma%20cota%C3%A7%C3%A3o%20de%20seguro!');
 });
 
 test('forms expose Bootstrap controls and keep native required validation', async ({ page }) => {
